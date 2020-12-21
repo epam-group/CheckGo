@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    var restaurant = ["KFC", "Burger King", "Country Pizza"]
+    @State private var selectedRestaurant = 0
     @State private var dish = ""
     @State private var name = ""
     @State private var dishCount = 0
@@ -33,6 +35,17 @@ struct ContentView: View {
                 Button("Minus"){
                     dishCount-=1
                 }}
+                Section{
+                    Picker("Which place do you want to visit?", selection: $selectedRestaurant){
+                        ForEach(0..<restaurant.count){ value in
+                            Text(self.restaurant[value])
+                        }
+                        //or ForEach(0..<restaurant.count)
+                        //Text(self.restaurant[$0]
+                        //coz foreach is a closure
+                    }
+                }
+                Text("Your chose is \(restaurant[selectedRestaurant])")
             }.navigationBarTitle("CheckGO", displayMode: .large)
         }
 }
