@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State private var dishName = ""
     @State private var dishCount = 0
+    @State private var dishPrice = ""
+    @State var personInGroup = 0
+    let tipAmount = [0, 5, 10, 15, 20, 25]
     //propetry wrapper is a solution to change values while program runs
     //furthermore it allow us to store value in the place in SwiftUI
     //that can be modified
@@ -17,20 +20,27 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             Form{
-                Section{
-                    Text("Hello, world!")
+                Section {
+                    TextField("Select your dish:", text: $dishPrice).keyboardType(.decimalPad)
+                    Text("You chose: \(dishPrice)")
                     }
-                HStack{
+                Section {
                     Button("Plus"){
                         self.dishCount+=1
                     }
-                    Spacer()
                     Text("Currently dishes: \(dishCount)")
-                    Spacer()
                     Button("Minus"){
                         self.dishCount-=1
+                    }}
+                Section {
+                    Picker("Choose tip amount", selection: $personInGroup){
+                        ForEach(1..<5){
+                            Text("\($0) person in group")
+                        }
                     }
-                }}.navigationBarTitle("CheckGO", displayMode: .large)
+                }
+            }
+                .navigationBarTitle("CheckGO", displayMode: .large)
         }
 }
 }
