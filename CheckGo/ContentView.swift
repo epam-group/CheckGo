@@ -44,7 +44,7 @@ struct ContentView: View {
                     Text("You price: \(dishPrice)")
                     //and here we need only to read variable
                     }
-                Section {
+                Section(header: Text("Dishes amount")) {
                     Button("Plus"){
                         self.dishCount+=1
                     }
@@ -62,7 +62,7 @@ struct ContentView: View {
                         }
                     }.pickerStyle(SegmentedPickerStyle())
                 }
-                Section {
+                Section(header: Text("How much tip want you pay"), footer: Text("Good choice")) {
                     Picker("Choose tip amount", selection: $tip){
                         ForEach(0..<tipAmount.count){
                             Text("\(self.tipAmount[$0])%")
