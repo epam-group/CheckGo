@@ -19,18 +19,22 @@ struct ContentView: View {
     //that can be modified
     //@state is for simple properties that will store only on one view
     
-    var amountPerPerson: Double {
+    var totalPrice: Double {
         //if no food declared = price insta 0
         let dishConvertedPrice = Double(dishPrice) ?? 0
-        let tipConverted = Double(tipAmount[tip])
-        let personConverted = Double(personInGroup + 1)
         //because person count started from 0, nor a 1
         let dishConvertedCount = Double(dishCount)
         
         let totalPrice = (dishConvertedPrice * dishConvertedCount)
-        //total price of all food
+        return totalPrice
+    }
+    var totalTip: Double {
+        let tipConverted = Double(tipAmount[tip])
         let totalTip = totalPrice * tipConverted / 100
-        //total tip for all food
+        return totalTip
+    }
+    var pricePerPerson: Double {
+        let personConverted = Double(personInGroup + 1)
         let pricePerPerson = (totalPrice + totalTip) / personConverted
         return pricePerPerson
     }
@@ -70,7 +74,11 @@ struct ContentView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-                Text("Each person should pay \(amountPerPerson, specifier: "%.2f")$")
+                Text("Each person should pay \(pricePerPerson, specifier: "%.2f")$")
+                Section(header: Text("Your price:"), footer: Text("Thanks for using my app")) {
+                    Text("Price of your purchase is: \(totalPrice, specifier: "%.2f")$")
+                    Text("Total tip for your purchase is: \(totalTip, specifier: "%.2f")$")
+                }
             }.navigationBarTitle("CheckGO", displayMode: .large)
         }
 }
