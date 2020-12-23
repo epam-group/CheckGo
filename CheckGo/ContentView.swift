@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
     @State private var dishName = ""
     @State private var dishCount = 0
@@ -69,7 +71,7 @@ struct ContentView: View {
                 Section(header: Text("How much tip want you pay"), footer: Text("Good choice")) {
                     Picker("Choose tip amount", selection: $tip){
                         ForEach(0..<tipAmount.count){
-                            Text("\(self.tipAmount[$0])%")
+                                Text("\(self.tipAmount[$0])%")
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
@@ -77,7 +79,14 @@ struct ContentView: View {
                 Text("Each person should pay \(pricePerPerson, specifier: "%.2f")$")
                 Section(header: Text("Your price:"), footer: Text("Thanks for using my app")) {
                     Text("Price of your purchase is: \(totalPrice, specifier: "%.2f")$")
-                    Text("Total tip for your purchase is: \(totalTip, specifier: "%.2f")$")
+                    HStack{
+                        Text("Total tip for your dishes is: ")
+                        if totalTip == 0{
+                            Text("\(totalTip, specifier: "%.2f")$").foregroundColor(.red)
+                        }else{
+                            Text("\(totalTip, specifier: "%.2f")$")
+                        }
+                    }
                 }
             }.navigationBarTitle("CheckGO", displayMode: .large)
         }
